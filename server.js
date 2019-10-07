@@ -11,7 +11,7 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 'https://murmuring-crag-27227.herokuapp.com/'
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
