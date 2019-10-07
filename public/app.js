@@ -21,14 +21,14 @@ $(document).click("h6", () => {
     url: "/articles/" + noteId
   })
 
-    .then(function(key) {
-      console.log(key)
+    .then(function(data) {
+      console.log(data)
 
-      // $('#notes').append("<h3>" + data.title + "</h3>"
-      // + "\n<input id='titleinput' name='title' >"
-      // + "\n<textarea id='bodyinput' name='body'></textarea>"
-      // + "\n<button data-id='" + data._id + "' id='savenote'>Save Note<button>"
-      // );
+      $('#notes').append("<h3>" + data.title + "</h3>"
+      + "\n<input id='titleinput' name='title' >"
+      + "\n<textarea id='bodyinput' name='body'></textarea>"
+      + "\n<button data-id='" + data._id + "' id='savenote'>Save Note<button>"
+      );
     })
 })
 
