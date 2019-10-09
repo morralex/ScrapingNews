@@ -14,21 +14,49 @@ $.getJSON("/articles", (data) => {
 $(document).click("h6", () => {
   $("#notes").empty();
 
-  const noteId = $(this).attr("data")
+  // const noteId = $(this).attr("data")
 
   $.ajax({
     method: "GET",
-    url: "/articles/" + noteId
+    url: "/articles/" 
   })
 
-    .then(function(data) {
-      console.log(data)
+    .then(function (resp) {
+      console.log(resp)
 
-      $('#notes').append("<h3>" + data.title + "</h3>"
-      + "\n<input id='titleinput' name='title' >"
-      + "\n<textarea id='bodyinput' name='body'></textarea>"
-      + "\n<button data-id='" + data._id + "' id='savenote'>Save Note<button>"
+      $('#notes').append("<h3>New Note</h3>"
+        + "\n<input id='titleinput' name='title' >"
+        + "\n<textarea id='bodyinput' name='body'></textarea>"
+        + "\n<button data-id='" + data._id + "' id='savenote'>Save Note<button>"
       );
+
+      if (data.note) {
+
+        $("#titleinput").val(data.note.title);
+        $("#bodyinput").val(data.note.body);
+      }
     })
 })
 
+
+$(document).click("#savenote", () => {
+
+  var noteId = $(this).attr("data-id");
+
+  $.ajax({
+    method: "POST",
+    url: "/articles/" + noteId,
+    data: {
+      title: $("#titleinput").val(),
+      body: $("#bodyinput").val()
+    }
+  })
+    .then(function (data) {
+      console.log(data);
+
+      $("#notes").empty();
+    });
+
+  $("#titleinput").val("");
+  $("#bodyinput").val("");
+});
